@@ -1,1 +1,12 @@
-{{ object_list }}
+<h1>Articles</h1>
+<ul>
+{% for Tweet in object_list %}
+    <p>{{ Tweet.content }}<p>
+    <h5>{{ Tweet.user }}</h5>
+    {{Tweet.timestamp}}
+    <br>
+    <br>
+{% empty %}
+    
+{% endfor %}
+</ul>
