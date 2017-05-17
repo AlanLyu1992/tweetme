@@ -1,3 +1,22 @@
-{{object.user}}
-{{object.timestamp}}
-{{object.content}}
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+	<div class='col-sm-1' style='background-color:red;'>
+		{{object.user}}
+	</div>
+	<div class='col-sm-1' style='background-color:yellow;'>
+		{{object.user}}
+	</div>
+	<div class='col-sm-1' style='background-color:green;'>
+		{{object.user}}
+	</div>
+	<div class='col-sm-1' style='background-color:blue;'>
+		{{object.user}}
+	</div>
+	{{object.user}}
+	{{object.timestamp}}
+	{{object.content}}
+</div>
+
+{% endblock content %}

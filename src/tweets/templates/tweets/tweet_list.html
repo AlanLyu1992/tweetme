@@ -1,12 +1,25 @@
-<h1>Articles</h1>
-<ul>
+{% extends "base.html" %}
+
+{% block content %}
 {% for Tweet in object_list %}
-    <p>{{ Tweet.content }}<p>
-    <h5>{{ Tweet.user }}</h5>
-    {{Tweet.timestamp}}
-    <br>
-    <br>
+	<div class="row">
+		<div class='col-sm-3 col-xs-12'>
+			<h1>{{request.user}}</h1>
+		</div>
+		<div class='col-sm-9'>
+			{{ Tweet.content }} <br/>
+					via {{ Tweet.user }} | {{Tweet.timestamp|timesince}} ago | <a href='{{ Tweet.get_absolute_url }}'>View</a>
+		</div>
+		<div class='col-sm-12'>
+		<hr/>
+		</div>
+</div>
 {% empty %}
-    
+	{% if request.GET.q %}
+    <p>No tweets found. </p>
+    {% else %}
+    <p>No tweets yet.</p>
+    {% endif %}
 {% endfor %}
-</ul>
+
+{% endblock content %}
