@@ -22,3 +22,6 @@ class Tweet(models.Model):
 	# 	if content == "abc":
 	# 		raise ValidationError("Cannot be abc")
 	# 	return super(Tweet, self).clean(*args,**kwargs)
+
+	class Meta:
+		ordering = ['-timestamp', 'content']
