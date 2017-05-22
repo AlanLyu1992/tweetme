@@ -6,7 +6,11 @@
 		<h1>{{object.username}}</h1>
 		<hr/>
 		<p>Followers: {{object.followed_by.all.count}}</p>
-		<p><a href='{% url "profiles:follow" username=object.username %}'>Follow</a></p>
+		<p>
+			<a class='btn btn-link' href='{{object.profile.get_follow_url}}'>
+				{% if following %}Unfollow{% else %}Follow{% endif %}
+			</a>
+		</p>
 	</div>
 	<div class='col-sm-9 col-xs-12'>
 		<h1>Tweets</h1>
@@ -18,7 +22,7 @@
 
 		<h1>Following <small>{{object.profile.get_following.count}}<small></h1>
 		{% for user in object.profile.get_following %}
-		<a href='/{{user.username}}'>{{ user.username }}</a><br/>
+		<h3><a href='/{{user.username}}'>{{ user.username }}</a><br/><h3>
 		{% empty %}
 		<h4>Not following any users</h4>
 		{% endfor %}
@@ -26,7 +30,7 @@
 
 		<h1>Followed By <small>{{object.followed_by.all.count}}<small></h1>
 		{% for profile in object.followed_by.all %}
-		<a href='/{{profile.user.username}}'>{{ profile.user.username }}</a><br/>
+		<h3><a href='/{{profile.user.username}}'>{{ profile.user.username }}</a><br/><h3>
 		{% empty %}
 		<h4>Not followed by any users</h4>
 		{% endfor %}
