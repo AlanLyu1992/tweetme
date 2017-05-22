@@ -16,7 +16,7 @@
 
 		<h1>Following</h1>
 		{% for user in object.profile.following.all %}
-		{{ user.username }}<br/>
+		<a href='/{{user.username}}'>{{ user.username }}</a><br/>
 		{% empty %}
 		<h4>Not following any users</h4>
 		{% endfor %}
@@ -24,7 +24,7 @@
 
 		<h1>Followed By</h1>
 		{% for profile in object.followed_by.all %}
-		{{ profile.user.username }}<br/>
+		<a href='/{{profile.user.username}}'>{{ profile.user.username }}</a><br/>
 		{% empty %}
 		<h4>Not followed by any users</h4>
 		{% endfor %}
