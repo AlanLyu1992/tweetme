@@ -8,7 +8,7 @@
 		<p>Followers: {{object.followed_by.all.count}}</p>
 		<p>
 			<a class='btn btn-link' href='{{object.profile.get_follow_url}}'>
-				{% if following %}Unfollow{% else %}Follow{% endif %}
+				{% if following %}Unfollow{% elif isSelf %}{% else %}Follow{% endif %}
 			</a>
 		</p>
 	</div>

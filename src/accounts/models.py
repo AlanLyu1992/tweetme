@@ -34,6 +34,11 @@ class UserProfileManager(models.Manager):
 			return True
 		return False
 
+	def is_self(self, user1,user2):
+		if user1.username == user2.username:
+			return True
+		else:
+			return False
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='profile') #user.profile
@@ -53,8 +58,9 @@ class UserProfile(models.Model):
 	def get_follow_url(self):
 		return reverse_lazy("profiles:follow", kwargs={"username": self.user.username})
 
+
 def post_save_user_receiver(sender, instance, created, *args, **kwargs):
 	if created:
-		new_profile = UserProfile.objects.get_or_create(user=instance)
+		new_profile = UserProfile.objects.get_or_create(user = instance)
 
 post_save.connect(post_save_user_receiver, sender=settings.AUTH_USER_MODEL)
