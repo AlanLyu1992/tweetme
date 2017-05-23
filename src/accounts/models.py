@@ -54,6 +54,7 @@ class UserProfile(models.Model):
 		return reverse_lazy("profiles:follow", kwargs={"username": self.user.username})
 
 def post_save_user_receiver(sender, instance, created, *args, **kwargs):
-	print(instance)
+	if created:
+		new_profile = UserProfile.objects.get_or_create(user=instance)
 
 post_save.connect(post_save_user_receiver, sender=settings.AUTH_USER_MODEL)
