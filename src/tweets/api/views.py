@@ -1,10 +1,23 @@
 from django.db.models import Q
 from rest_framework import generics
 from rest_framework import permissions
+from rest_framework.views import APIView
+from rest_framework.response import Response
 
 from tweets.models import Tweet
 from .serializers import TweetModelSerializer
 from .pagination import StandardResultsPagination
+
+class RetweetAPIView(APIView):
+	permission_classes = [permissions.IsAuthenticated]
+	def get(self,request,pk,format=None):
+		tweet_qs = Tweet.objects.filter(pk=pk)
+		if tweet_qs.exists() and tweet_qs.count() ==1:
+				new_tweet = Tweet.objects.retweet(request.user,tweet_qs.first())
+				if new_tweet is not None:
+					data = TweetModelSerializer(new_tweet).data
+					return Response(data)
+		return Response("不允许啊",status=400) 
 
 class TweetCreateAPIView(generics.CreateAPIView):
 	serializer_class = TweetModelSerializer
