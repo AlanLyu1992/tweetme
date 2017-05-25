@@ -1,10 +1,13 @@
+import re
 from django.db import models
 from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.urls import reverse
 from django.utils import timezone
+from django.db.models.signals import post_save
 # Create your models here.
 from .validators import validate_content
+
 
 class TweetManager(models.Manager):
 	def retweet(self, user, parent_obj):
@@ -53,3 +56,16 @@ class Tweet(models.Model):
 
 	class Meta:
 		ordering = ['-timestamp', 'content']
+
+def tweet_save_receiver(sender, instance, created,*args, **kwargs):
+	if created and not instance.parent:
+		# notify a user
+		user_regex = r'@(?P<username>[\w.@+-]+)'
+		m = re.findall(user_regex,instance.content)
+		# send notification to user here 
+		hash_regex = r'#(?P<hashtag>[\w\d-]+)'
+		h_m = re.findall(hash_regex,instance.content)
+		#send hashtag signal to user here
+
+
+post_save.connect(tweet_save_receiver, sender=Tweet)
