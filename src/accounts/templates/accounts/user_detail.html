@@ -1,4 +1,11 @@
 {% extends "base.html" %}
+{% block script %}
+<script>
+$(document).ready(function(){
+	loadTweetDataContainer("tweet-container")
+});
+</script>
+{% endblock script %}
 
 {% block content %}
 <div class='row'>
@@ -14,9 +21,12 @@
 	</div>
 	<div class='col-sm-9 col-xs-12'>
 		<h1>Tweets</h1>
-		{% for tweet in object.tweet_set.all %}
-		{{tweet}}<br/>
-		{% endfor %}
+		<div id='tweet-container' data-url='/api/{{obj.username}}/tweet/'>
+		</div>
+		<a href = '#' id='loadmore'>Load More Tweets</a>
+
+	
+
 
 		<hr/>
 
