@@ -28,11 +28,12 @@
   </head>
   <body>
     {% include "navbar.html" %}
+
     <div class="container">
     	{% block content %}
     	{% endblock content %}
     </div>
-
+    {% include "reply-modal.html" %}
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script>
 function getParameterByName(name, url) {
@@ -89,6 +90,13 @@ function loadTweetDataContainer(tweetContainerID){
 		var this_ = $(this)
 		var parentId = this_.attr("data-id")
 		var username = this_.attr("data-user")
+		$('#replyModal').modal({
+
+		})
+		$('#replyModal textarea').val("@"+ username+ " ")
+		$('#replyModal').on("shown.bs.modal",function(){
+			$('textarea').focus()
+		})
 		// var url = "/api" + $(this).attr("href")
 		// $.ajax({
 		// 	method: "GET",
@@ -240,12 +248,12 @@ function loadTweetDataContainer(tweetContainerID){
 
 	var charsStart = 140;
 	var charsCurrent = 0;
-	$('#tweet-form').append("<span id='tweetCharsLeft'>" + charsStart +"</span>")
+	$('.tweet-form').append("<span class='tweetCharsLeft'>" + charsStart +"</span>")
 
-	$('#tweet-form textarea').keyup(function(){
+	$('.tweet-form textarea').keyup(function(){
 		var tweetValue = $(this).val()
 		charsCurrent = charsStart - tweetValue.length
-		var spanChars = $('#tweetCharsLeft')
+		var spanChars = $(this).parent().parent().parent().find('.tweetCharsLeft')
 		spanChars.text(charsCurrent)
 
 		if(charsCurrent > 0){
@@ -260,7 +268,7 @@ function loadTweetDataContainer(tweetContainerID){
 
 	})
 
-	$("#tweet-form").submit(function(event){
+	$(".tweet-form").submit(function(event){
 		event.preventDefault()
 		var this_ = $(this)
 		console.log(this_.serialize())
