@@ -21,6 +21,7 @@ class LikeToggleAPIView(APIView):
 
 class RetweetAPIView(APIView):
 	permission_classes = [permissions.IsAuthenticated]
+
 	def get(self,request,pk,format=None):
 		tweet_qs = Tweet.objects.filter(pk=pk)
 		if tweet_qs.exists() and tweet_qs.count() ==1:
@@ -38,6 +39,12 @@ class TweetCreateAPIView(generics.CreateAPIView):
 		serializer.save(user=self.request.user)
 
  
+
+class TweetDetailAPIView(generics.RetrieveAPIView):
+	queryset = Tweet.objects.all()
+	serializer_class = TweetModelSerializer
+	permission_classes = [permissions.AllowAny]
+
 
 class TweetListAPIView(generics.ListAPIView):
 	serializer_class = TweetModelSerializer 
