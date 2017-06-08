@@ -78,10 +78,10 @@ class TweetModelSerializer(serializers.ModelSerializer):
 				return True
 		return False
 
-	def get_is_retweet(self, obj):
-		if obj.parent:
-			return True
-		return False
+	# def get_is_retweet(self, obj):
+	# 	if obj.parent:
+	# 		return True
+	# 	return False
 
 	def get_likes(self, obj):
 		return obj.liked.all().count() 
