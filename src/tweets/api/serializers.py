@@ -12,18 +12,18 @@ class ParentTweetModelSerializer(serializers.ModelSerializer):
 	# did_like = serializers.SerializerMethodField()
 
 	
-	class Meta:
-		model = Tweet
-		fields = [
-			'id',
-			'user',
-			'content',
-			'timestamp',
-			'date_display',
-			'timesince',
-			'likes',
-			# 'did_like',	
-		]
+	# class Meta:
+	# 	model = Tweet
+	# 	fields = [
+	# 		'id',
+	# 		'user',
+	# 		'content',
+	# 		'timestamp',
+	# 		'date_display',
+	# 		'timesince',
+	# 		'likes',
+	# 		# 'did_like',	
+	# 	]
 
 
 	# def get_did_like(self,obj):
