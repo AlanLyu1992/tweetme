@@ -22,7 +22,7 @@ class ParentTweetModelSerializer(serializers.ModelSerializer):
 			'date_display',
 			'timesince',
 			'likes',
-			# 'did_like',	
+			'did_like',	
 		]
 
 
