@@ -58,6 +58,7 @@ class TweetListAPIView(generics.ListAPIView):
 	def get_serializer_context(self,*args,**kwargs):
 		context = super(TweetListAPIView,self).get_serializer_context(*args,**kwargs)
 		context['request'] = self.request
+		context['response'] = self.response
 		return context
 
 
